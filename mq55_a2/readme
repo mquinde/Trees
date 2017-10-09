@@ -1,0 +1,109 @@
+Mariana Quinde Garcia
+mq55@drexel.edu
+CS360 PA2
+08/06/2016 *forgot to submit*
+
+Problem 1
+To formulate how optimal a BST is I will take into account how weight-balanced it is. I will calculate weight balance in a node by comparing the weight of each of its children. Therefore, the balance of a tree is the highest when the difference between its left and right children’s weight is 0. A perfectly optimal tree would have a weight-balance of 0, since all nodes would have the same weight as their sibling. To calculate weight of a node I will use the following formula: weight(n) = weight (leftChild) + weight (rightChild) + 1. A leaf node therefore has a weight of 1.
+To calculate how balanced a tree is I will get the weight difference for the children in every node and divide it by the number of nodes. This will give me the average unbalance in the tree as a whole (0 would make it optimal)
+
+Additionally to the code used to insert and check members, I added functions to generate a list with n elements in random order and a function to insert them all in a tree. I also implemented a counter to check the weight balance of the tree.  To test use: test n, where n is the number of nodes the tree will have
+
+Results: 
+The unbalance in the tree appears to be directly proportional to the number of nodes in the tree. Therefore, the larger the tree, the less balanced it becomes through the random insertion:
+
+			 test1  test2 test3 test4 test5	worstPossible
+n=10	 avg Unbalance:   1      2      1    0*    1		      9
+n=100	 avg Unbalance:   3      4      2    3     4		      99
+n=1000	 avg Unbalance:   6      6      5    7     5		      999	
+n=10000	 avg Unbalance:   8      9      8    8     9		      9999
+
+*(most optimal)
+
+Considering the worst case scenarios, the random insertion is relatively near optimal for all cases. 
+
+——— Execution Trace 1 (n=10) ——— 
+*Main> test 10
+The difference in weight for a tree of 10 nodes is: 21. The weight balance ratio is:2
+
+——— Execution Trace 2 (n=10000) ——— 
+*Main> test 10000
+The difference in weight for a tree of 10000 nodes is: 85467. The weight balance ratio is:8
+
+
+——————————————————————————————————————————
+Problem 2
+Specification:
+This program defines the huffman algorithm in haskell, it sets sample trees and sample messages to test it based on the examples from week 2.
+To run: testDecode1 (for tree 1)
+	 testEncode2 (for tree 2 and vice versa)
+
+Messages for tree 1: 
+decode: 100101110
+encode: bcda
+
+Messages for tree 2: 
+decode: 101110110011111
+encode: faceb
+
+——— Execution Trace 1 (will sample tree 1) ——— 
+*Main> testEncode1
+[1,0,0,1,0,1,1,1,0]
+*Main> testDecode1
+"BCDA"
+
+——— Execution Trace 2 (will sample tree 2) ——— 
+*Main> testEncode2
+[1,0,1,1,1,0,1,1,0,0,1,1,1,1,1]
+*Main> testDecode2
+"FACEB"
+——————————————————————————————————————————
+Problem 3
+
+Specifications:
+This program solves SICP programming problems 4.4, 4.9 and 4.11. 
+4.4) The first one implements “and” and “or” as derived expressions.
+To run: (testAnd system-global-environment( 
+	(or eval ‘(and <expressions>) system-global-environment)
+	(testOr system-global-environment)
+	(or eval ‘(or <expressions>) system-global-environment)
+
+——— Execution Trace 1 (4.4) ——— 
+1 ]=> testAnd system-global-environment
+
+;Value 13: #[compound-procedure 13 testand]
+
+1 ]=>
+;Value: #f
+
+1 ]=> testOr system-global-environment
+
+;Value 14: #[compound-procedure 14 testor]
+
+1 ]=>
+;Value: #f
+________________________________
+
+4.9) do: The do procedure is used when code has to be executed at least one time and until a condition is reached. Therefore, in scheme it’s design should be: 
+	(do (execution) (condition))
+	(do (display 5) (> 5 6))
+(code for derived expression in file)
+
+for: The for procedure is used when the number of iterations is known or can be calculated as a number.
+	(for (iterations)(execution))
+	(for (10)(set! x (+ x 1)))
+(code for derived expression in file)
+
+while: The for procedure is used when the iteration should only proceed on one condition. 
+	(while (condition)(iterationUpdate)(execution))
+	(while (< c 5) (set! c (+ c 1)) (display c))
+(code for derived expression in file)
+
+until: The for procedure is used when the iteration should proceed until a condition is met.
+	(until (condition)(iterationUpdate)(execution))
+	(until (> c 5) (set! c (+ c 1)) (display c))
+(code for derived expression in file)
+
+________________________________
+
+4.11) This program overwrites the environment binding operations to take a list of bindings instead of a pair of lists, where each binding is a name-value pair

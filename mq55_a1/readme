@@ -1,0 +1,255 @@
+Mariana Quinde Garcia
+mq55@drexel.edu
+CS360 PA1
+07/24/2016
+
+Problem 1
+
+Specification:
+Uses code in SICP to perform Huffman algorithm on the examples from week 2 lectures (figures 1-2). It defines the trees from the figures as sample-tree1 (for the small tree in figure 1) and sample-tree2 (for the big tree in figure 2). It also defines encoding and decoding messages, which are lists of symbols and binary numbers respectively.
+
+Messages for sample-tree1: 
+decode: 100101110
+encode: bcda
+
+Messages for sample-tree2: 
+decode: 101110110011111
+encode: faceb
+To call: (decode decode-message2 sample-tree2)
+	  (encode encode-message2 sample-tree2)
+
+(or replacing 2 with 1 for small tree or use other messages or trees previously defines)
+
+——— Execution Trace 1 (will sample tree 1) ——— 
+
+1 ]=> (load "problem1")
+
+;Loading "problem1.scm"... done
+;Value: encode-message2
+
+1 ]=> (encode encode-message1 sample-tree1)
+
+;Value 22: (1 0 0 1 0 1 1 1 0)
+
+1 ]=> (decode decode-message1 sample-tree1)
+
+;Value 23: (b c d a)
+
+
+——— Execution Trace 1 (will sample tree 2) ——— 
+1 ]=> (load "problem1")
+
+;Loading "problem1.scm"... done
+;Value: encode-message2
+
+1 ]=> (encode encode-message2 sample-tree2)
+
+;Value 24: (1 0 1 1 1 0 1 1 0 0 1 1 1 1 1)
+
+1 ]=> (decode decode-message2 sample-tree2)
+
+;Value 25: (f a c e b)
+
+——————————————————————————————————————————
+Problem 2
+
+Specifications:
+iteration function receives list with values (start step end)
+It returns a function that when called returns the next number
+in the sequence of (range (start step end))
+To call: (define function(iterator ‘(start step end)))
+	  (function) repeat to get values in sequence
+
+——— Execution Trace 1 (step of 2) ——— 
+1 ]=> (load "problem2")
+
+;Loading "problem2.scm"... done
+;Value: iterator
+
+1 ]=> (define next(iterator '(0 2 7)))
+
+;Value: next
+
+1 ]=> (next)
+
+;Value: 0
+
+1 ]=> (next)
+
+;Value: 2
+
+1 ]=> (next)
+
+;Value: 4
+
+1 ]=> (next)
+
+;Value: 6
+
+1 ]=> (next)
+
+;Value: ()
+1 ]=> (load "problem2")
+
+;Loading "problem2.scm"... done
+;Value: iterator
+
+——— Execution Trace 2 (step of 3) ——— 
+
+1 ]=> (define next(iterator '(3 3 12)))
+
+;Value: next
+
+1 ]=> (next)
+
+;Value: 3
+
+1 ]=> (next)
+
+;Value: 6
+
+1 ]=> (next)
+
+;Value: 9
+
+1 ]=> (next)
+
+;Value: 12
+
+1 ]=> (next)
+
+;Value: ()
+
+——————————————————————————————————————————
+Problem 3
+
+Specifications:
+Contains two functions: lookup which receives a name and an 
+association list. It returns the pair within the list with
+such a name or a null list if such pair does not exist.
+To call: (lookup name list)
+returns (name value) pair
+Assumes name is a string
+
+lookup-env receives a name and an environment with association
+lists. It returns the pair within the environment with such name
+or a null list if it does not exist.
+To call: (lookup-env name env)
+returns (name value) pair
+Assumes name is a string and that env is a list of association 
+lists
+
+——— Execution Trace 1 (lookup in list) ——— 
+1 ]=> (load "problem3")
+
+;Loading "problem3.scm"... done
+;Value: lookup
+
+1 ]=> (define l '(("name1" 1) ("name2" 2) ("name3" 3)))
+
+;Value: l
+
+1 ]=> (lookup "name2" l)
+
+;Value 13: ("name2" 2)
+
+1 ]=> (lookup "name5" l)
+
+;Value: ()
+
+
+——— Execution Trace 2 (lookup-env in env) ——— 
+
+1 ]=> (load "problem3")
+
+;Loading "problem3.scm"... done
+;Value: lookup-env
+
+1 ]=> (define env '((("a" 1) ("b" 2) ("c" 3)) (("d" 4) ("e" 5)) (("f" 6) ("g" 7) ("h" 8))))
+
+;Value: env
+
+1 ]=> (lookup-env "d" env))
+
+;Value 13: ("d" 4)
+
+1 ]=> (lookup-env "z" env))
+
+;Value: () 
+
+——————————————————————————————————————————
+Problem 4
+
+Specifications: 
+This program defines the huffman algorithm, sample-messages and sample-trees 
+from examples in week 2 (figures 1-2) to encode and decode.
+Messages for sampleTree1: 
+decode: 100101110
+encode: BCDA
+
+Messages for sampleTree2: 
+decode: 101110110011111
+encode: FACEB
+To call: decode (decodeMessage2, sampleTree2)
+         encode (encodeMessage2, sampleTree2) 
+replace with 1 for small tree, or use other messages (in upper case) or trees previously defined
+
+——— Execution Trace 1 (will sample tree 1) ——— 
+- use "problem4.ml";
+[opening problem4.ml]
+datatype Tree = Leaf of string * int | Node of Tree * Tree * string * int
+val symbols = fn : Tree -> string
+val weight = fn : Tree -> int
+val makeTree = fn : Tree * Tree -> Tree
+problem4.ml:26.5-27.57 Warning: match nonexhaustive
+          (0,Node (lChild,rChild,s,w)) => ...
+          (1,Node (lChild,rChild,s,w)) => ...
+
+val chooseBranch = fn : int * Tree -> Tree
+val decode = fn : int list * Tree -> string list
+val encodeSymbol = fn : string * Tree -> int list
+val encode = fn : string list * Tree -> int list
+val sampleTree1 = Node (Leaf ("A",1),Node (Node #,Leaf #,"BCD",2),"ABCD",3)
+  : Tree
+val decodeMessage1 = [1,0,0,1,0,1,1,1,0] : int list
+val encodeMessage1 = ["B","C","D","A"] : string list
+val sampleTree2 =
+  Node
+    (Node (Leaf #,Leaf #,"DE",45),Node (Leaf #,Node #,"FCAB",55),"DEFCAB",100)
+  : Tree
+val decodeMessage2 = [1,0,1,1,1,0,1,1,0,0,1,1,...] : int list
+val encodeMessage2 = ["F","A","C","E","B"] : string list
+val it = () : unit
+- encode (encodeMessage1, sampleTree1);
+val it = [1,0,0,1,0,1,1,1,0] : int list
+
+——— Execution Trace 2 (will sample tree 2) ——— 
+- use "problem4.ml";
+[opening problem4.ml]
+datatype Tree = Leaf of string * int | Node of Tree * Tree * string * int
+val symbols = fn : Tree -> string
+val weight = fn : Tree -> int
+val makeTree = fn : Tree * Tree -> Tree
+problem4.ml:26.5-27.57 Warning: match nonexhaustive
+          (0,Node (lChild,rChild,s,w)) => ...
+          (1,Node (lChild,rChild,s,w)) => ...
+
+val chooseBranch = fn : int * Tree -> Tree
+val decode = fn : int list * Tree -> string list
+val encodeSymbol = fn : string * Tree -> int list
+val encode = fn : string list * Tree -> int list
+val sampleTree1 = Node (Leaf ("A",1),Node (Node #,Leaf #,"BCD",2),"ABCD",3)
+  : Tree
+val decodeMessage1 = [1,0,0,1,0,1,1,1,0] : int list
+val encodeMessage1 = ["B","C","D","A"] : string list
+val sampleTree2 =
+  Node
+    (Node (Leaf #,Leaf #,"DE",45),Node (Leaf #,Node #,"FCAB",55),"DEFCAB",100)
+  : Tree
+val decodeMessage2 = [1,0,1,1,1,0,1,1,0,0,1,1,...] : int list
+val encodeMessage2 = ["F","A","C","E","B"] : string list
+val it = () : unit
+- encode (encodeMessage2, sampleTree2);
+val it = [1,0,1,1,1,0,1,1,0,0,1,1,...] : int list
+- decode (decodeMessage2, sampleTree2);
+val it = ["F","A","C","E","B"] : string list

@@ -1,0 +1,173 @@
+Mariana Quinde Garcia
+mq55@drexel.edu
+CS360 PA3
+
+Problem 1
+
+Specification:
+This program is a Prolog solution that answers the query of FCS problem
+14.3.1 and proving the facts formulated in FCS problem 14.9.2.
+To run:
+prolog
+[problem1].
+csg("PH100", "L. Van Pelt", X).   (returns the grade as ascii list [67,43])
+csgFormat("PH100", "L. Van Pelt", X).  (returns actual grade (C+))
+
+before("CS120", "CS100").  (returns yes)
+
+——— Execution Trace 1 (csg) ——— 
+| ?- csg("PH100", "L. Van Pelt", X).
+
+X = [67,43]
+
+yes
+——— Execution Trace 2 (csg) ——— 
+
+| ?- csgFormat("PH100", "L. Van Pelt", X).
+
+X = 'C+'
+
+yes
+——— Execution Trace 3 (before) ——— 
+| ?- before("CS120", "CS100").
+
+yes
+___________________________________________________________________________________
+
+Problem 2
+
+Specification:
+This program uses the SICP Query System code, available via the
+website https://mitpress.mit.edu/sicp/code/) code to answerer the query of
+FCS problem 14.3.1 and proving the facts formulated in FCS problem
+14.9.2. 
+To run querry:
+
+nit-scheme
+(load "problem2.scm")
+(initialize-data-base microshaft-data-base)
+(query-driver-loop)
+(csg (L. Van Pelt) (PH100) ?x)  (to get grade (C+))
+
+(before (CS120) (CS100)) (returns (before (CS120) (CS100)) so it's true)
+or
+(before ?x (CS100)) to list all courses which have CS100 as a requirement.
+
+——— Execution Trace 1 (csg) ——— 
+1 ]=> (query-driver-loop)
+
+
+;;; Query input:
+(csg (L. Van Pelt) (PH100) ?x)  (to get grade (C+))
+
+;;; Query results:
+(csg (l. van pelt) (ph100) (c+))
+——— Execution Trace 2 (before) ——— 
+
+;;; Query input:
+(before (CS120) (CS100)) (returns (before (CS120) (CS100))
+
+;;; Query results:
+(before (cs120) (cs100))
+
+——— Execution Trace 3 (before) ——— 
+;;; Query input:
+(before ?x (CS100))
+
+;;; Query results:
+(before (cs101) (cs100))
+(before (cs206) (cs100))
+(before (ee200) (cs100))
+(before (cs206) (cs100))
+(before (cs121) (cs100))
+(before (cs205) (cs100))
+(before (cs120) (cs100))
+___________________________________________________________________________________
+
+Problem 3
+
+Specification:
+This program implements the recursive-descend parser of FCS 
+section 11.6 constructing parse trees of the grammar of balanced parentheses
+Uses Node.java and Tree.java
+To run:
+javac problem3.java
+java problem3 "()()()" (or any string desired, default runs tree examples)
+
+——— Execution Trace 1 ("()()()") ———
+mq55@tux64-13 mq55_a3> java problem3 "()()()"
+Input = ()()()
+Height: 4
+Pre-Order:
+B(Be)B(Be)B(Be)Be
+Post-Order:
+(eB)(eB)(eB)eBBBB
+
+——— Execution Trace 2 (default) ———
+mq55@tux64-13 mq55_a3> java problem3
+Input = ()()
+Height: 3
+Pre-Order:
+B(Be)B(Be)Be
+Post-Order:
+(eB)(eB)eBBB
+
+Input = (())(())
+Height: 4
+Pre-Order:
+B(B(Be)Be)B(B(Be)Be)Be
+Post-Order:
+((eB)eBB)((eB)eBB)eBBB
+
+Input = (()())()
+Height: 4
+Pre-Order:
+B(B(Be)B(Be)Be)B(Be)Be
+Post-Order:
+((eB)(eB)eBBB)(eB)eBBB 
+___________________________________________________________________________________
+
+Problem 4
+
+Specification:
+Implements the table driven parsing algorithm of FCS section 11.7 
+constructing parse trees of the grammar of simple programming statements 
+(FCS figure 11.33). Uses a stack as explained in FCS figure 11.34.
+It also prints height and pre and post order traversals.
+Uses Node.java and Tree.java
+To run:
+javac problem4.java
+java problem4 "{wcs;s;}" (or any string desired, default is runs three examples)
+
+——— Execution Trace 1 ("{wcs;s;}") ———
+mq55@tux64-13 mq55_a3> java problem4 "{wcs;s;}"
+Input = {wcs;s;}
+Height: 4
+Pre-Order:
+S{TSwcSs;TSs;T}
+Post-Order:
+{wcs;SSs;S}TTTS
+
+——— Execution Trace 2 (default) ———
+mq55@tux64-13 mq55_a3> java problem4
+Input = {wcs;s;}
+Height: 4
+Pre-Order:
+S{TSwcSs;TSs;T}
+Post-Order:
+{wcs;SSs;S}TTTS
+
+Input = {{s;s;}s;}
+Height: 6
+Pre-Order:
+S{TS{TSs;TSs;T}TSs;T}
+Post-Order:
+{{s;Ss;S}TTTSs;S}TTTS
+
+Input = {{wcs;s;}s;}
+Height: 6
+Pre-Order:
+S{TS{TSwcSs;TSs;T}TSs;T}
+Post-Order:
+{{wcs;SSs;S}TTTSs;S}TTTS
+
